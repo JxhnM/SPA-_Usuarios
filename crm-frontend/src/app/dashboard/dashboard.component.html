@@ -1,0 +1,42 @@
+<h2>Usuarios del Sistema</h2>
+
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user._id }}</td>
+      <td>{{ user.nombre }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.rol }}</td>
+      <td>
+        <button class="btn editar" (click)="editarUsuario(user)">Editar</button>
+        <button class="btn eliminar" (click)="eliminarUsuario(user._id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="selectedUser" class="form-edit">
+  <h3>Editar Usuario</h3>
+
+  <label>Nombre:</label><br>
+  <input [(ngModel)]="selectedUser.nombre"><br><br>
+
+  <label>Email:</label><br>
+  <input [(ngModel)]="selectedUser.email"><br><br>
+
+  <label>Rol:</label><br>
+  <input [(ngModel)]="selectedUser.rol"><br><br>
+
+  <button (click)="guardarCambios()">Guardar</button>
+  <button (click)="selectedUser = null">Cancelar</button>
+</div>
