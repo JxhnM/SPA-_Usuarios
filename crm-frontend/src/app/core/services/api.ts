@@ -6,25 +6,25 @@ import { Observable} from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private API_URL = 'https://spa-usuarios.onrender.com/';
+  private API_URL = 'https://crm-backend-cxa3.onrender.com';
 
   constructor(private http: HttpClient){}
 
   // ==== Usuarios ====
- getUsers(): Observable<any> {
-  const token = localStorage.getItem('token');
-
-  return this.http.get(`${this.API_URL}/usuarios`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  }
-
-  deleteUser(id:string):Observable<any>{
+  getUsers(): Observable<any> {
     const token = localStorage.getItem('token');
 
-    return this.http.delete(`${this.API_URL}/usuarios/${id}`, {
+    return this.http.get(`${this.API_URL}/api/usuarios`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  deleteUser(id: string): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    return this.http.delete(`${this.API_URL}/api/usuarios/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -32,20 +32,21 @@ export class ApiService {
   }
 
   updateUser(id: string, data: any): Observable<any> {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-  return this.http.put(`${this.API_URL}/usuarios/${id}`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`
+    return this.http.put(`${this.API_URL}/api/usuarios/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   }
+
   // ==== Auth ====
-  login(data : any) : Observable<any>{
-    return this.http.post(`${this.API_URL}/auth/login`, data);
+  login(data: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/api/auth/login`, data);
   }
 
-  register(data : any) : Observable<any>{
-   return this.http.post(`${this.API_URL}/auth/register`, data);
+  register(data: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/api/auth/register`, data);
   }
 }
